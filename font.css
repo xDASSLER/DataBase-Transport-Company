@@ -1,0 +1,57 @@
+
+html{
+    background-image: url(img/fonWeb.jpeg);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  }
+
+header{
+    background-color:antiquewhite;
+}
+
+p.UpperText{
+    text-align: center;
+    font-family:'Verdana';
+    font-size:35px;
+    
+}
+
+div.register{
+    text-align: center;
+    border-color: antiquewhite;
+    border-radius: 25px;
+    border: 3px solid whitesmoke;
+    background-color: antiquewhite;
+    margin-inline: 500px;
+    font-family:'Verdana';
+    font-size:35px;
+}
+
+div.submit{
+    font-size:35px;
+    text-align:center;
+}
+
+form.register{
+    margin-top: 25px;
+    margin-bottom: 35px;
+    font-size:20px;
+    text-align: left;
+}
+
+em.register{
+    color:red;
+}
+
+label.register{
+    font-size:15px;
+}
+
+fieldset.register{
+    margin-top: 15px;
+}
