@@ -32,13 +32,18 @@
   
 <form method="POST" action="index.php">
     <fieldset>
-        <?=$error?> 
-        <div class = CenterText>
-            <label class="login">Логин:</label> <input type="login" id = "login" name = "login" placeholder="Введите логин">
+        <div class = "ErrorLog">
+            <?=$error?>
+        </div> 
+
+        <div class = "CenterText">
+            Логин:
+            <input type="login" id = "login" name = "login" placeholder="Введите логин">
         </div>
         
-        <div class = CenterText>
-            <label class = "password">Пароль: </label> <input type="password" id = "password" name = "password" placeholder="Введите пароль">
+        <div class = "CenterText">
+            Пароль:
+            <input type="password" id = "password" name = "password" placeholder="Введите пароль">
         </div>
 
         <div>

@@ -25,8 +25,8 @@ body
 fieldset
 {
     border-color: azure;
-    padding: 100px;
-    width: 500px;
+    padding: 40px;
+    width: 100px;
     border-radius: 10px;
     background-color: bisque;
     
@@ -41,4 +41,22 @@ fieldset
     text-align: center;
     font-size: 35px;
     color:rgb(0, 0, 0);
+}
+
+.CenterText
+{
+    font-size: 25px;
+    padding:20px;
+}
+
+.ButtonText
+{
+    text-align: center;
+    margin-top: 20px;
+}
+
+.ErrorLog
+{
+    color: red; 
+    font-size: 20;
 }
