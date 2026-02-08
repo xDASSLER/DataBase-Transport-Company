@@ -1,21 +1,6 @@
 <?php
     require_once('linkBD\dbconnect.php');
-
-    $error = '';
-    if (!empty($_POST['login']) && !empty($_POST['password'])) {
-        $login = $_POST['login'];
-        $password = $_POST['password'];
-        if ($login == 'admin' && $password == '12345') 
-        {
-            setcookie('login', $login, time()+3600, "/"); //Создание куки
-            header('Location: /profile.php'); //Переход на другую страницу
-            die();
-        }
-        else 
-        {
-            $error = 'Неверный пользователь или пароль!';
-        }
-    }
+    require_once('phpScripts\login.php');
 ?>
 
 <!DOCTYPE html>
@@ -46,7 +31,7 @@
             <input type="password" id = "password" name = "password" placeholder="Введите пароль">
         </div>
 
-        <div>
+        <div class = "ButtonText">
             <button type="submit">Войти</button>
         </div>
 

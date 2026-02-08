@@ -1,5 +1,7 @@
 <?php
-    if (empty($_COOKIE['login'])) 
+    require_once('linkBD\dbconnect.php');
+    session_start();
+    if (empty($_SESSION['login'])) 
     {
         header('location: /index.php');
         die();
@@ -18,8 +20,13 @@
     
 </header>
 <body>
-   Добро пожаловать: <?=htmlspecialchars($_COOKIE['login']) ?>   
+<div>
+    Добро пожаловать: <?=htmlspecialchars($_SESSION['login']) ?> <br>
+    <a href="phpScripts/logout.php">Выйти</a>
 
+
+
+</div>
 
 </body>
 <footer>
