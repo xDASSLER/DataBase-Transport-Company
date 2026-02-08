@@ -1,6 +1,7 @@
 <?php
     require_once('linkBD\dbconnect.php');
 
+    $error = '';
     if (!empty($_POST['login']) && !empty($_POST['password'])) {
         $login = $_POST['login'];
         $password = $_POST['password'];
@@ -12,7 +13,7 @@
         }
         else 
         {
-            header('Location: /index.php'); //Переход на другую страницу
+            $error = 'Неверный пользователь или пароль!';
         }
     }
 ?>
@@ -31,6 +32,7 @@
   
 <form method="POST" action="index.php">
     <fieldset>
+        <?=$error?> 
         <div class = CenterText>
             <label class="login">Логин:</label> <input type="login" id = "login" name = "login" placeholder="Введите логин">
         </div>

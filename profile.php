@@ -1,3 +1,12 @@
+<?php
+    if (empty($_COOKIE['login'])) 
+    {
+        header('location: /index.php');
+        die();
+    }
+?>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,7 +18,7 @@
     
 </header>
 <body>
-   Привет     
+   Добро пожаловать: <?=htmlspecialchars($_COOKIE['login']) ?>   
 
 
 </body>
