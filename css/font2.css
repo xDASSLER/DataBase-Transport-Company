@@ -8,3 +8,40 @@ html
     background-repeat: no-repeat;
     background-attachment: fixed;
 }
+
+header
+{
+    background-color:bisque;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    margin-top: 50px;
+    padding:30px;
+    font-size: 20px;
+}
+
+fieldset
+{
+    border-color: azure;
+    padding: 200px;
+    width: 400px;
+    border-radius: 10px;
+    background-color: bisque;
+    
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); 
+}
+
+.Word_Space
+{
+    margin-right: 79%;
+}
+
+.StaticText
+{
+    position: relative; 
+    top: 60px;
+    font-size: 25px;
+    text-align: center;
+}
