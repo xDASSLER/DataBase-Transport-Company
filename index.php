@@ -1,5 +1,4 @@
 <?php
-    require_once('linkBD\dbconnect.php');
     require_once('phpScripts\login.php');
 ?>
 
