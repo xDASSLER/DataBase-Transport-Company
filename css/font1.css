@@ -57,6 +57,7 @@ fieldset
 
 .ErrorLog
 {
+    text-align: center;
     color: red; 
     font-size: 20;
 }

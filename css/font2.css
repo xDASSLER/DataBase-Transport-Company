@@ -1,13 +1,22 @@
-html
-{
+html {
     margin: 0;
     padding: 0;
+    height: 100%;
     background-image: url('/img/fonProfile.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
+
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+}
+
 
 header
 {
@@ -22,15 +31,17 @@ header
 fieldset
 {
     border-color: azure;
-    padding: 200px;
-    width: 400px;
-    border-radius: 10px;
+    padding: 50px;
+    border-radius: 10px; 
     background-color: bisque;
-    
-    position: absolute;
-    top: 50%;
+    text-align: center;
+
+    /* position: fixed; 
+    top: 200px;
     left: 50%;
-    transform: translate(-50%, -50%); 
+    transform: translateX(-50%); */
+
+    margin: 100px; 
 }
 
 .Word_Space
@@ -44,4 +55,130 @@ fieldset
     top: 60px;
     font-size: 25px;
     text-align: center;
+}
+
+.Select-Group {
+    max-width: 400px;
+    margin: 30px auto;
+}
+
+.Select-Group select {
+    width: 100%;
+    padding: 12px 15px;
+    font-size: 15px;
+    border: 2px solid #ddd;
+    border-radius: 6px;
+    background-color: white;
+    color: #444;
+    transition: border-color 0.3s;
+    margin-bottom: 15px; 
+}
+
+.Select-Group select:focus {
+    outline: none;
+    border-color: #4a6fa5;
+    box-shadow: 0 0 0 3px rgba(74, 111, 165, 0.15);
+}
+
+.Select-Group select:hover {
+    border-color: #4a6fa5;
+}
+
+.Select-Group button {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: 500;
+    color: white;
+    background-color: #4a6fa5;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.Select-Group button:hover {
+    background-color: #3a5a80;
+}
+
+.Select-Group button:active {
+    background-color: #2a4560;
+}
+
+.info {
+    padding: 12px 18px;
+    background: white;
+    border: 1px solid #dee2e6;
+    border-radius: 6px;
+    display: inline-block;
+    font-size: 14px;
+    color: #495057;
+}
+
+.info strong {
+    color: #212529;
+    font-weight: 600;
+}
+
+.info span {
+    margin: 0 6px;
+    color: #ced4da;
+}
+
+.table {
+    width: 100%;
+    max-width: 1000px;
+    margin: 30px auto;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+}
+
+/* Заголовок таблицы */
+table thead {
+    background: #4a6fa5;
+    color: white;
+}
+
+table th {
+    padding: 15px 20px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+table tbody tr {
+    border-bottom: 1px solid #e0e0e0;
+    transition: background-color 0.3s ease;
+}
+
+table tbody tr:hover {
+    background-color: #f5f5f5;
+}
+
+table tbody tr:last-child {
+    border-bottom: none;
+}
+
+table td {
+    padding: 12px 20px;
+    color: #333;
+    font-size: 14px;
+}
+
+table tbody tr:nth-child(even) {
+    background-color: #fafafa;
+}
+
+table td:first-child {
+    font-weight: 500;
+    color: #555;
 }

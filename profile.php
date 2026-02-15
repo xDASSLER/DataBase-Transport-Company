@@ -6,7 +6,6 @@
         header('location: /index.php');
         die();
     }
-    
     //Получение данных с сессии
     $selectedTable = $_SESSION['selected_table'] ?? '';
     $tableData = $_SESSION['table_data'] ?? [];
@@ -29,29 +28,35 @@
     <?=htmlspecialchars($_SESSION['login']) ?></span> 
     <a href="phpScripts/logout.php">Выйти</a>
 </header>
+
     <fieldset>
-        <legend class = "StaticText"> Выберите таблицу базы данных из выпадающего списка. </legend>
+         <legend class = "StaticText"> Выберите таблицу базы данных из выпадающего списка. </legend>
             <form method="POST" action="/phpScripts/GetTable.php">
-                 <label for="tableSelect">Таблица:</label>
+                <div class = "Select-Group">
                     <select id="tableSelect" name="selected_table" required>
                         <option value="">Выберите таблицу</option>
-            
             <?php foreach ($tables as $table): //Перебор элементов массива и запись во временную переменную ?> 
                 <option value="<?php echo htmlspecialchars($table); ?>">
                     <?php echo htmlspecialchars($table); ?>
                 </option>
             <?php endforeach; ?>
-        </select>
-        <button type="submit">Выбрать</button>
+                    </select>
+                <button type="submit">Выбрать</button>
+                    </div>
 
-                    <!-- Отображение данных таблицы -->
+    <!-- Отображение данных таблицы -->
     <?php if (!empty($selectedTable) && !empty($tableData) && !empty($columns)): ?>
-        <div class="info">
-            <strong>Таблица:</strong> <?php echo htmlspecialchars($selectedTable); ?> | 
-            <strong>Записей:</strong> <?php echo count($tableData); ?> | 
-            <strong>Столбцов:</strong> <?php echo count($columns); ?>
+        <div class = 'info'>
+        Информация по выбранной таблице:
+            <span>|</span>
+        <strong>Название:</strong> <?php echo htmlspecialchars($selectedTable); ?> 
+            <span>|</span>
+        <strong>Записей:</strong> <?php echo count($tableData); ?> 
+            <span>|</span>
+        <strong>Столбцов:</strong> <?php echo count($columns); ?>
         </div>
         
+        <div class = 'table'>
         <table>
             <thead>
                 <tr>
@@ -70,7 +75,9 @@
                 <?php endforeach; ?>
             </tbody>
         </table>
+        </div>
     <?php endif; ?>
+
 
     </form>
     </fieldset>

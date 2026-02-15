@@ -1,6 +1,7 @@
 <?php 
 require_once('linkBD/dbconnect.php');
 session_start();
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['selected_table'] != null) {
     $selectedTable = $_POST['selected_table'];
     
