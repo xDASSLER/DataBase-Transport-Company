@@ -33,7 +33,7 @@
          <legend class = "StaticText"> Выберите таблицу базы данных из выпадающего списка. </legend>
             <form method="POST" action="/phpScripts/GetTable.php">
                 <div class = "Select-Group">
-                    <select id="tableSelect" name="selected_table" required>
+                    <select id="tableSelect" name="selected_table">
                         <option value="">Выберите таблицу</option>
             <?php foreach ($tables as $table): //Перебор элементов массива и запись во временную переменную ?> 
                 <option value="<?php echo htmlspecialchars($table); ?>">
@@ -43,6 +43,7 @@
                     </select>
                 <button type="submit">Выбрать</button>
                     </div>
+            </form>
 
     <!-- Отображение данных таблицы -->
     <?php if (!empty($selectedTable) && !empty($tableData) && !empty($columns)): ?>
@@ -69,17 +70,35 @@
                 <?php foreach ($tableData as $row): ?>
                     <tr>
                         <?php foreach ($columns as $column): ?>
-                            <td><?php echo htmlspecialchars($row[$column] ?? ''); ?></td>
+                            <td><?php echo htmlspecialchars($row[$column]); ?></td>
                         <?php endforeach; ?>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
         </table>
         </div>
+
+                
+        <?php if ($selectedTable === 'транспорт' || $selectedTable === 'маршрут'): // Форма для таблицы транспорт?>
+            <div class="addForm">
+                <div class="FormTitle">Добавить новую строку в таблицу "Транспорт"</div>
+                <form method="POST" action="/phpScripts/AddRecord.php">
+                    <input type="hidden" name="table_name" value="<?php echo htmlspecialchars($selectedTable); ?>">
+                    <?php foreach ($columns as $column): ?>
+                            <input 
+                                type="text" 
+                                name="<?php echo htmlspecialchars($column); ?>" 
+                                placeholder="<?php echo htmlspecialchars($column); ?>"
+                            >
+                    <?php endforeach; ?>
+                    <button type="submit">Добавить запись</button>
+                </form>
+            </div>
+        <?php endif; ?>
+
     <?php endif; ?>
 
 
-    </form>
     </fieldset>
 
 <footer>
