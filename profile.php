@@ -1,6 +1,6 @@
 <?php
-    require_once('phpScripts/SelectTable.php');
     session_start();
+    require_once('phpScripts/SelectTable.php');
     if (empty($_SESSION['login'])) 
     {
         header('location: /index.php');
@@ -83,7 +83,7 @@
             <div class="addForm">
                 <div class="FormTitle">Добавить новую строку в таблицу "Транспорт"</div>
                 <form method="POST" action="/phpScripts/AddRecord.php">
-                    <input type="hidden" name="table_name" value="<?php echo htmlspecialchars($selectedTable); ?>">
+                     <input type="hidden" name="table_name" value="<?php echo htmlspecialchars($selectedTable); ?>">
                     <?php foreach ($columns as $column): ?>
                             <input 
                                 type="text" 
@@ -94,8 +94,8 @@
                     <button type="submit">Добавить запись</button>
                 </form>
             </div>
-        <?php endif; ?>
 
+        <?php endif; ?>
     <?php endif; ?>
 
 

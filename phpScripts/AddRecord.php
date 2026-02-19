@@ -2,66 +2,75 @@
 require_once('linkBD/dbconnect.php');
 session_start();
 
-//Получение имени таблицы
+// error_reporting(E_ALL);
+// ini_set('display_errors', 1);
+// ini_set('log_errors', 1);
+
+// ini_set('error_log', __DIR__ . '/add_record_error.log');
+
+$error = '';
+$success = '';
+// Получение имени таблицы
 $tableName = $_POST['table_name'] ?? '';
 
-//Получение колонок таблицы
-$colsResult = $link->query("SHOW COLUMNS FROM `$tableName`");
-$validColumns = [];
-while ($row = $colsResult->fetch_assoc()) {
-    $validColumns[] = $row['Field'];
-}
-$colsResult->free(); //Очистка
+// Получение столбцов таблицы
+$validColumns = []; 
+$columnTypes = [];
 
-// получение строк таблицы
+//Запрос
+$colsResult = $link->query("SHOW COLUMNS FROM `$tableName`");
+
+while ($row = $colsResult->fetch_assoc()) {
+    $colName = $row['Field'];
+    $colType = strtolower($row['Type']);
+    
+    $validColumns[] = $colName;
+    
+    if (strpos($colType, 'int') !== false) {
+        $columnTypes[$colName] = 'i';
+    } elseif (preg_match('/float|double|decimal/', $colType)) {
+        $columnTypes[$colName] = 'd';
+    } else {
+        $columnTypes[$colName] = 's';
+    }
+}
+$colsResult->free();
+
+// Формирование параметров запроса
 $columns = [];
 $values = [];
 $params = [];
 $types = '';
 
 foreach ($validColumns as $col) {
-    // Пропускаем автоинкремент и системные поля
-    if (in_array(strtolower($col), ['id', 'created_at', 'updated_at'])) continue;
-    
+
+    // проверка совпадения ключа 
     if (isset($_POST[$col]) && $_POST[$col] !== '') {
         $columns[] = "`$col`";
         $values[] = '?';
         $params[] = $_POST[$col];
-        $types .= 's'; 
+        $types .= $columnTypes[$col] ?? 's';
     }
 }
+
 
 // Вставка данных
-if (!empty($columns) && !empty($params)) {
-    $colsStr = implode(', ', $columns);
-    $valsStr = implode(', ', $values);
-    
-    $stmt = $link->prepare("INSERT INTO `$tableName` ($colsStr) VALUES ($valsStr)");
-    if ($stmt) {
-        $stmt->bind_param($types, ...$params);
-        $stmt->execute();
-        $stmt->close();
-    } else {
-        error_log('Prepare Error: ' . $link->error);
-        $_SESSION['error'] = 'Ошибка при добавлении записи';
-    }
+$colsStr = implode(', ', $columns); //Соединение строка массива в одну строку
+$valsStr = implode(', ', $values);
+
+$stmt = $link->prepare("INSERT INTO `$tableName` ($colsStr) VALUES ($valsStr)");
+$stmt->bind_param($types, ...$params);
+
+if ($stmt->execute()) {
+    $success = 'Запись добавлена';
+} 
+else 
+{
+    $error = 'Ошибка добавления записи!';
 }
+$stmt->close();
 
-// 🔥 САМОЕ ВАЖНОЕ: Проверка execute() 🔥
-$executed = $stmt->execute();
-
-if (!$executed) {
-    error_log('EXECUTE ERROR: ' . $stmt->error);
-    $_SESSION['error'] = 'Не удалось добавить запись: ' . $stmt->error;
-    $stmt->close();
-    $_SESSION['selected_table'] = $tableName;
-    header('Location: /profile.php');
-    exit;
-}
-
-// Возврат на профиль
 $_SESSION['selected_table'] = $tableName;
 header('Location: /profile.php');
 exit;
-
 ?>
