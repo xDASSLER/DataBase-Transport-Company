@@ -34,7 +34,7 @@
             <form method="POST" action="/phpScripts/GetTable.php">
                 <div class = "Select-Group">
                     <select id="tableSelect" name="selected_table">
-                        <option value="">Выберите таблицу</option>
+                        <option value="" disabled selected>Выберите таблицу</option>
             <?php foreach ($tables as $table): //Перебор элементов массива и запись во временную переменную ?> 
                 <option value="<?php echo htmlspecialchars($table); ?>">
                     <?php echo htmlspecialchars($table); ?>
@@ -45,8 +45,8 @@
                     </div>
             </form>
 
-    <!-- Отображение данных таблицы -->
-    <?php if (!empty($selectedTable) && !empty($tableData) && !empty($columns)): ?>
+
+<?php if (!empty($selectedTable) && !empty($tableData) && !empty($columns)): //Отображение данных таблицы?>
         <div class = 'info'>
         Информация по выбранной таблице:
             <span>|</span>
@@ -79,24 +79,45 @@
         </div>
 
                 
-        <?php if ($selectedTable === 'транспорт' || $selectedTable === 'маршрут'): // Форма для таблицы транспорт?>
+<?php if ($selectedTable === 'транспорт' || $selectedTable === 'маршрут'): // Форма для добавления строк?>
             <div class="addForm">
-                <div class="FormTitle">Добавить новую строку в таблицу "Транспорт"</div>
-                <form method="POST" action="/phpScripts/AddRecord.php">
+                <div class="FormTitle">Добавить новую строку в таблицу <?php echo htmlspecialchars($selectedTable); ?>
+                </div>
+                <form class = "simpleForm" method="POST" action="/phpScripts/AddRecord.php">
                      <input type="hidden" name="table_name" value="<?php echo htmlspecialchars($selectedTable); ?>">
                     <?php foreach ($columns as $column): ?>
-                            <input 
-                                type="text" 
-                                name="<?php echo htmlspecialchars($column); ?>" 
-                                placeholder="<?php echo htmlspecialchars($column); ?>"
-                            >
+                            <input class = "inputTable" type="text" name="<?php echo htmlspecialchars($column); ?>" 
+                            placeholder="<?php echo htmlspecialchars($column); ?>" required>
                     <?php endforeach; ?>
                     <button type="submit">Добавить запись</button>
                 </form>
             </div>
-
         <?php endif; ?>
     <?php endif; ?>
+
+<?php if ($selectedTable === 'груз'): //Форма для удаления строк ?>
+    <div class="addForm">
+        <div class="FormTitle">Удалить запись из таблицы: <?php echo htmlspecialchars($selectedTable); ?></div>
+        <form method="POST" action="/phpScripts/DeleteRecord.php" class="simpleForm">
+            <input type="hidden" name="table_name" value="<?php echo htmlspecialchars($selectedTable); ?>">
+            <select name="record_id" class="simpleInput" required>
+                <option value="" disabled selected>Выберите запись для удаления</option>
+                <?php foreach ($tableData as $row): ?>
+                    <?php
+                        $id = isset($row['Id']) ? (int)$row['Id'] : null;
+                    ?>
+                    <?php if ($id !== null): ?>
+                        <option value="<?php echo $id; ?>">
+                            <?php echo $id; ?>
+                        </option>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+            </select>
+            
+            <button type="submit">Удалить</button>
+        </form>
+    </div>
+<?php endif; ?>
 
 
     </fieldset>

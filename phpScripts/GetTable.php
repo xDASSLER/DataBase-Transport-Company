@@ -11,17 +11,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['selected_table'] != null) {
     
     if ($dataResult) 
         {
-        // Получаем названия столбцов
+        // Получение названия столбцов
         $columns = [];
         $fieldInfo = mysqli_fetch_fields($dataResult);
         foreach ($fieldInfo as $field) {
             $columns[] = $field->name;
         }
         
-        // Получаем данные строк
+        // Получение данных строк
         $tableData = mysqli_fetch_all($dataResult, MYSQLI_ASSOC);
         
-        // Сохраняем данные в сессии
+        // Сохранение
         $_SESSION['selected_table'] = $selectedTable;
         $_SESSION['table_data'] = $tableData;
         $_SESSION['columns'] = $columns;
@@ -31,7 +31,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['selected_table'] != null) {
         } 
     else 
     {
-    // Если форма не отправлена, возвращаем на профиль
     header('Location: /profile.php');
     exit;
 }

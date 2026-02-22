@@ -22,12 +22,12 @@
 
         <div class = "CenterText">
             Логин:
-            <input type="login" id = "login" name = "login" placeholder="Введите логин">
+            <input type="login" id = "login" name = "login" placeholder="Введите логин" required>
         </div>
         
         <div class = "CenterText">
             Пароль:
-            <input type="password" id = "password" name = "password" placeholder="Введите пароль">
+            <input type="password" id = "password" name = "password" placeholder="Введите пароль" required>
         </div>
 
         <div class = "ButtonText">

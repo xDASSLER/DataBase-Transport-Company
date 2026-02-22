@@ -140,7 +140,6 @@ table {
     background-color: white;
 }
 
-/* Заголовок таблицы */
 table thead {
     background: #4a6fa5;
     color: white;
@@ -181,4 +180,71 @@ table tbody tr:nth-child(even) {
 table td:first-child {
     font-weight: 500;
     color: #555;
+}
+
+.addForm {
+    background: #4a6fa5;
+    border-radius: 16px;
+    padding: 24px;
+    max-width: 500px;
+    margin: 20px auto;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.FormTitle {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 20px;
+    text-align: center;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #eee;
+}
+
+.simpleForm {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.inputTable {
+    width: 100%;
+    padding: 12px 16px;
+    font-size: 1rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    background: #fafafa;
+    transition: border-color 0.2s, background 0.2s;
+    box-sizing: border-box;
+}
+
+.inputTable::placeholder {
+    color: #999;
+}
+
+.inputTable:focus {
+    outline: none;
+    border-color: #6366f1;
+    background: #fff;
+}
+
+.simpleForm button {
+    margin-top: 8px;
+    padding: 14px;
+    font-size: 1rem;
+    font-weight: 500;
+    color: black;
+    background: bisque;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+}
+
+.simpleForm button:hover {
+    background: white;
+}
+
+.simpleForm button:active {
+    transform: scale(0.98);
 }
