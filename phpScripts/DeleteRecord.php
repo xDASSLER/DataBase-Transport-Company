@@ -11,7 +11,7 @@ $recordId = (int)$recordId;
 
 $stmt = $link->prepare("DELETE FROM `$tableName` WHERE Id = ?");
 
-// Привязка параметра (i = integer)
+// Привязка параметра
 $stmt->bind_param("i", $recordId);
 
 if ($stmt->execute()) {
