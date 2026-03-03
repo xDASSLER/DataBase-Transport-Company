@@ -5,7 +5,7 @@
     //Пользователь уже авторизован
     if (!empty($_SESSION['login'])) 
     {
-        header('Location: /profile.php'); 
+        header('Location: /Profile.php'); 
         die();
     }
 
@@ -22,7 +22,7 @@
             if ($login === $user['Login'] && $password === $user['Password']) //Если пароль и логин верный
                 {
                     $_SESSION['login'] = $login;
-                    header('Location: /profile.php'); //Переход на другую страницу
+                    header('Location: /Profile.php'); //Переход на другую страницу
                     die();                       
                 }
             else 

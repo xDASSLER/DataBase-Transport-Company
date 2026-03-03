@@ -22,13 +22,13 @@ if ($stmt->execute()) {
     
     // Редирект с результатом
     if ($deleted) {
-        header("Location: /profile.php");
+        header("Location: /Profile.php");
     }
 
 } else {
     $stmt->close();
     $link->close();
-    header("Location: /profile.php");
+    header("Location: /Profile.php");
     exit;
 }
 ?>

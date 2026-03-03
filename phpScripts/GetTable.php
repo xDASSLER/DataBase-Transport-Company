@@ -2,9 +2,10 @@
 session_start();
 require_once('linkBD/dbconnect.php');
 
+$selectedTable = $_POST['selected_table'] ?? $_GET['selected_table'] ?? null;
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['selected_table'] != null) {
-    $selectedTable = $_POST['selected_table'];
-    
+
     // Запрос данных таблицы
     $query = "SELECT * FROM `$selectedTable`";
     $dataResult = mysqli_query($link, $query);
@@ -26,12 +27,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['selected_table'] != null) {
         $_SESSION['table_data'] = $tableData;
         $_SESSION['columns'] = $columns;
         
-        header('Location: /profile.php');
+        header('Location: /Profile.php');
         exit;
         } 
     else 
     {
-    header('Location: /profile.php');
+    header('Location: /Profile.php');
     exit;
 }
 }

@@ -248,3 +248,9 @@ table td:first-child {
 .simpleForm button:active {
     transform: scale(0.98);
 }
+
+.Label_input
+{
+    color: white;
+    font-size: 18px;
+}

@@ -71,6 +71,6 @@ else
 $stmt->close();
 
 $_SESSION['selected_table'] = $tableName;
-header('Location: /profile.php');
+header('Location: /Profile.php');
 exit;
 ?>
