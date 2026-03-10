@@ -26,7 +26,44 @@
         $is_role = 'Operator';
     }
 
-    if ($is_role === 'Operator') 
+if ($is_role === 'Admin')
+{
+    $selectedTable = 'транспорт';
+        $query = "SELECT * FROM `$selectedTable`";
+        $dataResult = mysqli_query($link, $query);
+    
+        if ($dataResult) 
+        {
+            // Получение названия столбцов
+            $columns = [];
+            $fieldInfo = mysqli_fetch_fields($dataResult);
+            foreach ($fieldInfo as $field) {
+                $columns[] = $field->name;
+        }
+        
+        // Получение данных строк
+        $tableData = mysqli_fetch_all($dataResult, MYSQLI_ASSOC);
+        }
+    
+    $selectedTable2 = 'маршрут';
+    $query2 = "SELECT * FROM `$selectedTable2`";
+    $dataResult2 = mysqli_query($link, $query2);
+    
+        if ($dataResult2) 
+        {
+            // Получение названия столбцов
+            $columns2 = [];
+            $fieldInfo2 = mysqli_fetch_fields($dataResult2);
+            foreach ($fieldInfo2 as $field2) {
+                $columns2[] = $field2->name;
+        }
+        
+        // Получение данных строк
+        $tableData2 = mysqli_fetch_all($dataResult2, MYSQLI_ASSOC);
+        }
+}
+
+    elseif ($is_role === 'Operator') 
     {
         $selectedTable = 'рейс';
         $query = "SELECT * FROM `$selectedTable`";
@@ -101,25 +138,8 @@
 </header>
 
 <?php if ($is_role === 'Admin'): ?>
-    <fieldset>
-        
-         <legend class = "StaticText"> Выберите таблицу базы данных из выпадающего списка. </legend>
-            <form method="POST" action="/phpScripts/GetTable.php">
-                <div class = "Select-Group">
-                    <select id="tableSelect" name="selected_table">
-                        <option value="" disabled selected>Выберите таблицу</option>
-            <?php foreach ($tables as $table): //Перебор элементов массива и запись во временную переменную ?> 
-                <option value="<?php echo htmlspecialchars($table); ?>">
-                    <?php echo htmlspecialchars($table); ?>
-                </option>
-            <?php endforeach; ?>
-                    </select>
-                <button type="submit">Выбрать</button>
-                    </div>
-            </form>
-
-
-<?php if (!empty($selectedTable) && !empty($tableData) && !empty($columns)): //Отображение данных таблицы?>
+<fieldset>
+    <?php if (!empty($selectedTable) && !empty($tableData) && !empty($columns)): //Отображение данных таблицы?>
         <div class = 'info'>
         Информация по выбранной таблице:
             <span>|</span>
@@ -151,8 +171,7 @@
         </table>
         </div>
 
-                
-<?php if ($selectedTable === 'транспорт' || $selectedTable === 'маршрут'): // Форма для добавления строк?>
+        <?php if ($selectedTable === 'транспорт'): // Форма для добавления строк?>
             <div class="addForm">
                 <div class="FormTitle">Добавить новую строку в таблицу <?php echo htmlspecialchars($selectedTable); ?>
                 </div>
@@ -166,33 +185,55 @@
                 </form>
             </div>
         <?php endif; ?>
-    <?php endif; ?>
+        <?php endif; ?>
 
-<?php if ($selectedTable === 'груз'): //Форма для удаления строк ?>
-    <div class="addForm">
-        <div class="FormTitle">Удалить запись из таблицы: <?php echo htmlspecialchars($selectedTable); ?></div>
-        <form method="POST" action="/phpScripts/DeleteRecord.php" class="simpleForm">
-            <input type="hidden" name="table_name" value="<?php echo htmlspecialchars($selectedTable); ?>">
-            <select name="record_id" class="simpleInput" required>
-                <option value="" disabled selected>Выберите запись для удаления</option>
-                <?php foreach ($tableData as $row): ?>
-                    <?php
-                        $id = isset($row['Id']) ? (int)$row['Id'] : null;
-                    ?>
-                    <?php if ($id !== null): ?>
-                        <option value="<?php echo $id; ?>">
-                            <?php echo $id; ?>
-                        </option>
-                    <?php endif; ?>
+        <?php if (!empty($selectedTable2) && !empty($tableData2) && !empty($columns2)): //Отображение данных таблицы?>
+        <div class = 'info'>
+        Информация по выбранной таблице:
+            <span>|</span>
+        <strong>Название:</strong> <?php echo htmlspecialchars($selectedTable2); ?> 
+            <span>|</span>
+        <strong>Записей:</strong> <?php echo count($tableData2); ?> 
+            <span>|</span>
+        <strong>Столбцов:</strong> <?php echo count($columns2); ?>
+        </div>
+        
+        <div class = 'table'>
+        <table>
+            <thead>
+                <tr>
+                    <?php foreach ($columns2 as $column2): ?>
+                        <th><?php echo htmlspecialchars($column2); ?></th>
+                    <?php endforeach; ?>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($tableData2 as $row2): ?>
+                    <tr>
+                        <?php foreach ($columns2 as $column2): ?>
+                            <td><?php echo htmlspecialchars($row2[$column2]); ?></td>
+                        <?php endforeach; ?>
+                    </tr>
                 <?php endforeach; ?>
-            </select>
-            
-            <button type="submit">Удалить</button>
-        </form>
-    </div>
-    <?php endif; ?>
-    </fieldset>
-
+            </tbody>
+        </table>
+        </div>
+        <?php endif; ?>
+                
+<?php if ($selectedTable2 === 'маршрут'): // Форма для добавления строк?>
+            <div class="addForm">
+                <div class="FormTitle">Добавить новую строку в таблицу <?php echo htmlspecialchars($selectedTable2); ?>
+                </div>
+                <form class = "simpleForm" method="POST" action="/phpScripts/AddRecord.php">
+                     <input type="hidden" name="table_name" value="<?php echo htmlspecialchars($selectedTable2); ?>">
+                    <?php foreach ($columns2 as $column2): ?>
+                            <input class = "inputTable" type="text" name="<?php echo htmlspecialchars($column2); ?>" 
+                            placeholder="<?php echo htmlspecialchars($column2); ?>" required>
+                    <?php endforeach; ?>
+                    <button type="submit">Добавить запись</button>
+                </form>
+            </div>
+        <?php endif; ?>
 
 
 
